@@ -16,7 +16,6 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'metakirby5/codi.vim'
 Plug 'posva/vim-vue'
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-projectionist'
@@ -40,7 +39,6 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'godlygeek/tabular'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'pangloss/vim-javascript'
 Plug 'joshdick/onedark.vim'
@@ -209,8 +207,6 @@ nnoremap <leader>rf :call RunFile()<CR>
 func! RunFile()
     if &filetype == 'php'
         exec "!php %:p"
-    elseif &filetype == 'go'
-        exec "!go run %:p"
     elseif &filetype == 'ruby'
         exec "!ruby %:p"
     elseif &filetype == 'sh'

@@ -20,7 +20,7 @@ export ARCHFLAGS="-arch x86_64"
 
 alias vi="nvim"
 alias gstart="git init && git add --all && git commit -m \"initial commit\""
-alias open="chrome --app"
+alias open="chromium --app"
 [ -f ~/.alias ] && source ~/.alias
 
 #export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
