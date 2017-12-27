@@ -16,7 +16,7 @@ elif output=$(which apt-get); then
       python3-pip git zsh  silversearcher-ag \
       curl libpq-dev build-essential \
       libcurl4-openssl-dev libffi-dev \
-      -y
+      tmux -y
 elif output=$(which brew); then
     brew install tmux \
         zsh
