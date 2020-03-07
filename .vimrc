@@ -38,6 +38,7 @@ Plug 'ap/vim-css-color'
 " Split arrays in PHP / other things
 Plug 'AndrewRadev/splitjoin.vim'
 
+Plug 'townk/vim-autoclose'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
