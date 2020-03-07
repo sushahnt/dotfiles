@@ -81,6 +81,7 @@ set mouse=""
 " for vim-ctrlspace
 set hidden
 set number
+set relativenumber
 set backspace=indent,eol,start   "Allow backspace in insert mode.
 set smartcase
 set ignorecase
