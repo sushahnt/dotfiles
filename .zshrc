@@ -3,10 +3,9 @@ export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="ys"
 
-plugins=(git composer httpie emacs docker zsh-syntax-highlighting)
+plugins=(git composer httpie sudo docker docker-compose zsh-syntax-highlighting)
 
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -19,21 +18,14 @@ export EDITOR='nvim'
 export ARCHFLAGS="-arch x86_64"
 
 alias vi="nvim"
-alias gstart="git init && git add --all && git commit -m \"initial commit\""
-alias open="chromium --app"
 [ -f ~/.alias ] && source ~/.alias
 
-#export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
-# tmux color fixes
 export TERM="xterm-256color"
 
 # Composer
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-
-# Go
-export GOPATH="$HOME/.go/pkg"
-export PATH="$PATH:$GOPATH/bin/"
 
 #Get back to vim by ctrl-z
 fancy-ctrl-z () {
@@ -52,10 +44,6 @@ bindkey '^Z' fancy-ctrl-z
 stty start undef
 stty stop undef
 setopt noflowcontrol
-
-### rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
 
 ### FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
