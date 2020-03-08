@@ -42,7 +42,6 @@ Plug 'townk/vim-autoclose'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
-Plug 'StanAngeloff/php.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
@@ -67,6 +66,8 @@ Plug 'sumpygump/php-documentor-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 call plug#end()
 
@@ -173,6 +174,9 @@ let g:lightline = {
         \ 'colorscheme': 'onedark',
         \ 'active': {
         \   'left': [['mode'], ['gitbranch','readonly', 'filename', 'modified'], ['gutentags']],
+        \   'right': [ [ 'lineinfo' ],
+        \              [ 'percent' ],
+        \              [ 'filetype' ] ]
         \ },
         \ 'component': {
         \   'gitbranch': '%{FugitiveStatusline()}',
@@ -227,11 +231,31 @@ nmap ,m :NERDTreeToggle<CR>
 nmap ,n :NERDTreeFind<CR>
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-
-" Add space after comment
 let g:NERDSpaceDelims = 1                 "Add a space after comment
+let NERDTreeDirArrowExpandable = "" " make arrows invisible
+let NERDTreeDirArrowCollapsible = "" " make arrows invisible
+let NERDTreeNodeDelimiter = "\u263a" " smiley face
+let g:NERDTreeLimitedSyntax = 1
 
+let g:NERDTreeIndicatorMapCustom = {
+\ "Modified"  : "✹",
+\ "Staged"    : "✚",
+\ "Untracked" : "✭",
+\ "Renamed"   : "➜",
+\ "Unmerged"  : "═",
+\ "Deleted"   : "✖",
+\ "Dirty"     : "✗",
+\ "Clean"     : "✔︎",
+\ 'Ignored'   : '☒',
+\ "Unknown"   : "?"
+\ }
+
+" webdev icons
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = 'v'
 
 " Reload unchanged files automatically
 set autoread
@@ -349,7 +373,6 @@ let g:gutentags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
                             \ '*vendor/*/test*', '*vendor/*/Test*',
                             \ '*vendor/*/fixture*', '*vendor/*/Fixture*',
                             \ '*var/cache*', '*var/log*']
-
 
 " ========== CtrlP ==========
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g "" '
