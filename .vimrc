@@ -52,6 +52,7 @@ Plug 'hashivim/vim-hashicorp-tools'
 Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sbdchd/neoformat'
 Plug 'powerman/vim-plugin-AnsiEsc'
@@ -66,7 +67,6 @@ Plug 'sumpygump/php-documentor-vim'
 Plug 'kaicataldo/material.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
@@ -88,6 +88,76 @@ set smartcase
 set ignorecase
 set cursorline                   "highlight current line
 
+" Toggle relative numbering, and set to absolute on loss of focus or insert mode
+set rnu
+function! ToggleNumbersOn()
+    set nu!
+    set rnu
+endfunction
+function! ToggleRelativeOn()
+    set rnu!
+    set nu
+endfunction
+autocmd FocusLost * call ToggleRelativeOn()
+autocmd FocusGained * call ToggleRelativeOn()
+autocmd InsertEnter * call ToggleRelativeOn()
+autocmd InsertLeave * call ToggleRelativeOn()
+
+" ========== Scrolling ==========
+set scrolloff=8                 " Scroll when 8 lines away from margins
+set sidescrolloff=15            " How near the cursor must come to the border
+set sidescroll=3
+
+" ========== Handling Files ==========
+set encoding=utf-8              " UTF-8 Encoding to avoid server issues
+set noswapfile                  " Avoid using Swap Files. Text is in memory
+set nobackup                    " Prevent Backup files
+set nowb                        " Prevent Backup files
+set history=1000                " Amount of :cmdline history
+set path+=**
+
+" ========== Folding settings ==========
+set foldmethod=indent            " fold based on indent
+set foldnestmax=10              " deepest fold is 10 levels
+set nofoldenable              " dont fold by default
+set foldlevel=1                " this is just what i use
+
+" ========== Tabs and indent ==========
+set nowrap
+set autoindent                " on new lines, match indent of previous line
+set copyindent                " copy the previous indentation on autoindenting
+set cindent                  " smart indenting for c-like code
+set expandtab                " Tabs are spaces, not tabs
+
+" ========== Set smarttab ==========
+set tabstop=4                " tab size
+set shiftwidth=4
+set shiftround
+set softtabstop=4
+
+filetype plugin indent on
+
+" Allow for mappings including Esc, while preserving zero timeout after pressing it manually.
+set complete-=i
+
+" Set window title by default.
+set title
+set titleold="Terminal"
+set titlestring=%F
+
+" Show the line and column number of the cursor position.
+set ruler
+
+" Show white space and tab characters
+set list
+
+" Set default whitespace characters when using :set list
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+
+" System clipboard copy & paste
+set pastetoggle=<F2> "F2 before pasting to preserve indentation
+
+" Deoplete
 if has('nvim')
     let g:deoplete#enable_at_startup = 1
 endif
@@ -144,56 +214,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" ========== Scrolling ==========
-set scrolloff=8                 " Scroll when 8 lines away from margins
-set sidescrolloff=15            " How near the cursor must come to the border
-set sidescroll=3
-
-" ========== Handling Files ==========
-set encoding=utf-8              " UTF-8 Encoding to avoid server issues
-set noswapfile                  " Avoid using Swap Files. Text is in memory
-set nobackup                    " Prevent Backup files
-set nowb                        " Prevent Backup files
-set history=1000                " Amount of :cmdline history
-set path+=**
-
-" ========== Folding settings ==========
-set foldmethod=indent            " fold based on indent
-set foldnestmax=10              " deepest fold is 10 levels
-set nofoldenable              " dont fold by default
-set foldlevel=1                " this is just what i use
-
-" ========== Tabs and indent ==========
-set nowrap
-set autoindent                " on new lines, match indent of previous line
-set copyindent                " copy the previous indentation on autoindenting
-set cindent                  " smart indenting for c-like code
-set expandtab                " Tabs are spaces, not tabs
-
-" ========== Set smarttab ==========
-set tabstop=4                " tab size
-set shiftwidth=4
-set shiftround
-set softtabstop=4
-
-filetype plugin indent on
-
-" Allow for mappings including Esc, while preserving zero timeout after pressing it manually.
-set complete-=i
-
-" Set window title by default.
-set title
-set titleold="Terminal"
-set titlestring=%F
-
-" Show the line and column number of the cursor position.
-set ruler
-
-" Show white space and tab characters
-set list
-
-" Set default whitespace characters when using :set list
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 
 " ========== Search ==========
 set incsearch               "highlight the search text object
@@ -252,9 +272,6 @@ au BufRead,BufNewFile *.php vnoremap <buffer> <leader>pd :call PhpDocRange()<CR>
 
 " =============== FZF config =================
 "nnoremap <silent> <C-p> :FZF<CR>
-
-" ====== Generate ctags ==========
-command! Phpctags execute "Dispatch ctags -R --fields=+laimS --languages=php"
 
 " ======= run current file in console =======
 nnoremap <leader>rf :call RunFile()<CR>
@@ -343,6 +360,7 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_match_current_file = 1
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_use_caching = 0
+let g:ctrlp_working_path_mode = 'r'
 " Jump to definition
 map <silent> <leader>jd :CtrlPTag<cr><C-\>w
 

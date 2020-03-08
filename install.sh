@@ -55,5 +55,10 @@ touch ~/.gitignore_global
 echo "tags" >> ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
 
-git config --global user.email "sushant.shh@gmail.com"
-git config --global user.name "Sushant Shah"
+echo "Enter your Git email."
+read git_email
+echo "Enter your Git username."
+read git_username
+
+git config --global user.email $git_email
+git config --global user.name $git_username
