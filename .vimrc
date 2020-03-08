@@ -64,7 +64,7 @@ Plug 'jwalton512/vim-blade'
 Plug 'alvan/vim-php-manual'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'sumpygump/php-documentor-vim'
-Plug 'kaicataldo/material.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -164,16 +164,13 @@ endif
 
 " ========== Theme ==========
 syntax enable
-if has('nvim')
-set termguicolors
-endif
-let g:material_theme_style = 'darker'
-colorscheme material
+set background=dark
+colorscheme onedark
 
 " ========== Light Line ==========
 set noshowmode
 let g:lightline = {
-        \ 'colorscheme': 'material_vim',
+        \ 'colorscheme': 'onedark',
         \ 'active': {
         \   'left': [['mode'], ['gitbranch','readonly', 'filename', 'modified'], ['gutentags']],
         \ },
