@@ -189,11 +189,12 @@ set binary
 
 " ---------- Settings for Ale
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_save = 1
 let g:ale_sign_column_always = 1
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
+let g:ale_php_phpcs_standard = "psr2"
 
 augroup AleGroup
     autocmd!
@@ -276,7 +277,7 @@ function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
 endfunction
-autocmd FileType php inoremap <Leader>pu <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php inoremap <C-\> <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>pu :call PhpInsertUse()<CR>
 
 " ========== Expand Namespace =========
@@ -284,10 +285,10 @@ function! IPhpExpandClass()
     call PhpExpandClass()
     call feedkeys('a', 'n')
 endfunction
-autocmd FileType php inoremap <Leader>pe <Esc>:call IPhpExpandClass()<CR>
+"autocmd FileType php inoremap <Leader>pe:call IPhpExpandClass()<CR>
 autocmd FileType php noremap <Leader>pe :call PhpExpandClass()<CR>
 
-au BufRead,BufNewFile *.php inoremap <buffer> <leader>pd :call PhpDoc()<CR>
+"au BufRead,BufNewFile *.php inoremap <buffer> <leader>pd :call PhpDoc()<CR>
 au BufRead,BufNewFile *.php nnoremap <buffer> <leader>pd :call PhpDoc()<CR>
 au BufRead,BufNewFile *.php vnoremap <buffer> <leader>pd :call PhpDocRange()<CR>
 
