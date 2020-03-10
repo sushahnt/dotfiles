@@ -375,6 +375,14 @@ let g:gutentags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
                             \ '*vendor/*/fixture*', '*vendor/*/Fixture*',
                             \ '*var/cache*', '*var/log*']
 
+let g:gutentags_ctags_extra_args = [
+            \ '--recurse=yes',
+            \ '--tag-relative=yes',
+            \ '--exclude=.git',
+            \ '--languages=php',
+            \ '--PHP-kinds=+cfit-av'
+            \]
+
 " ========== CtrlP ==========
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g "" '
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
