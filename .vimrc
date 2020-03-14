@@ -7,10 +7,10 @@ call plug#begin()
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'preservim/nerdcommenter'
 
-" wrapper for git and display git diff in the left gutter
+" Wrapper for git and display git diff in the left gutter
 Plug 'tpope/vim-fugitive' | Plug 'mhinz/vim-signify'
 
-" surrounding text objects with whatever you want (paranthesis, quotes, html tags...)
+" Surrounding text objects with whatever you want (paranthesis, quotes, html tags...)
 Plug 'tpope/vim-surround'
 
 " Highlight briefly every yank text
@@ -22,17 +22,17 @@ Plug 'andymass/vim-matchup'
 " Align plugin
 Plug 'godlygeek/tabular'
 
-" php refactoring options
+" PHP refactoring options
 Plug 'adoy/vim-php-refactoring-toolbox', {'for': 'php'}
 Plug '2072/php-indenting-for-vim', {'for': 'php'}
 
-" php doc autocompletion
+" PHP doc autocompletion
 Plug 'tobyS/vmustache' | Plug 'tobyS/pdv', {'for': 'php'}
 
-" twig
+" *twig
 Plug 'lumiliet/vim-twig', {'for': 'twig'}
 
-" display the hexadecimal colors - useful for css and color config
+" Display the hexadecimal colors - useful for css and color config
 Plug 'ap/vim-css-color'
 
 " Split arrays in PHP / other things
@@ -73,7 +73,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 call plug#end()
 
-" ========== Theme ==========
+" ========= Theme =========
 syntax enable
 
 " This call must happen after the plug#end() call to ensure
@@ -116,12 +116,12 @@ set smartcase
 set ignorecase
 set cursorline               "highlight current line
 
-" ========== Scrolling ==========
+" ========= Scrolling =========
 set scrolloff=8              " Scroll when 8 lines away from margins
 set sidescrolloff=15         " How near the cursor must come to the border
 set sidescroll=3
 
-" ========== Handling Files ==========
+" ========= Handling Files =========
 set encoding=utf-8           " UTF-8 Encoding to avoid server issues
 set noswapfile               " Avoid using Swap Files. Text is in memory
 set nobackup                 " Prevent Backup files
@@ -129,20 +129,20 @@ set nowb                     " Prevent Backup files
 set history=1000             " Amount of :cmdline history
 set path+=**
 
-" ========== Folding settings ==========
+" ========= Folding settings =========
 set foldmethod=indent        " fold based on indent
 set foldnestmax=10           " deepest fold is 10 levels
 set nofoldenable             " dont fold by default
 set foldlevel=1              " this is just what i use
 
-" ========== Tabs and indent ==========
+" ========= Tabs and indent =========
 set nowrap
 set autoindent               " on new lines, match indent of previous line
 set copyindent               " copy the previous indentation on autoindenting
 set cindent                  " smart indenting for c-like code
 set expandtab                " Tabs are spaces, not tabs
 
-" ========== Set smarttab ==========
+" ========= Set smarttab =========
 set tabstop=4                " tab size
 set shiftwidth=4
 set shiftround
@@ -179,7 +179,7 @@ endif
 set autoread
 au CursorHold * checktime
 
-" ======= autoreload rc file on save ========
+" Autoreload rc file on save
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -200,22 +200,22 @@ autocmd FocusGained * call ToggleRelativeOn()
 autocmd InsertEnter * call ToggleRelativeOn()
 autocmd InsertLeave * call ToggleRelativeOn()
 
-" ========== Bubble/Move selected lines ==========
+" ========= Bubble/Move selected lines =========
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" ========== Resize buffer ==========
+" ========= Resize buffer =========
 nnoremap <A-h> :vertical resize -5<cr>
 nnoremap <A-j> :resize +5<cr>
 nnoremap <A-k> :resize -5<cr>
 nnoremap <A-l> :vertical resize +5<cr>
 
-" ========== SAVE ==========
+" ========= SAVE =========
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <Esc>:update<CR>
 vnoremap <C-s> <Esc>:update<CR>
 
-" ========== Edit & load .vimrc file ==========
+" ========= Edit & load .vimrc file =========
 nnoremap <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <leader>so :source $MYVIMRC<cr>
 
@@ -224,8 +224,8 @@ inoremap jk <esc>
 
 nnoremap <leader>rr :echo cfi#format("%s", "")<CR>
 
-" ========== netrw settings ==========
-let g:netrw_localrmdir="rm -r"                  "delete non empty directory
+" ========= netrw settings =========
+let g:netrw_localrmdir="rm -r"   "delete non empty directory
 nnoremap - :Explore<CR>
 
 " Set filetype for ractive template for pagevamp
@@ -246,7 +246,7 @@ command! Tabstospace %s/\t/  /g
 "
 :nmap <leader>ll m`b~``
 
-" ========== Light Line ==========
+" ========= Light Line =========
 set noshowmode
 let g:lightline = {
         \ 'colorscheme': 'base16',
@@ -262,10 +262,10 @@ let g:lightline = {
         \ },
       \ }
 
-" ============ Ale ==========
+" ========= Ale =========
 set binary
 
-" ---------- Settings for Ale
+" ---Settings for Ale
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_sign_column_always = 1
@@ -286,7 +286,7 @@ func! TouchOpenFile()
     let g:ale_enabled = 1
 endfunc
 
-" ========== UltiSnips ==========
+" ========= UltiSnips =========
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -296,13 +296,13 @@ let g:UltiSnipsEditSplit="vertical"
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 
-" ========== Search ==========
+" ========= Search =========
 set incsearch               "highlight the search text object
 set hlsearch                "highlight search result
 " Clear the search buffer
 nnoremap <leader>, :noh<cr>
 
-" ========== NERDTree ==========
+" ========= NERDTree =========
 let NERDTreeShowHidden=1           "Show hidden file in NERDTree
 nmap ,m :NERDTreeToggle<CR>
 nmap ,n :NERDTreeFind<CR>
@@ -327,14 +327,14 @@ let g:NERDTreeIndicatorMapCustom = {
 \ "Unknown"   : "?"
 \ }
 
-" webdev icons
+" Webdev icons
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = 'v'
 
-" ========== PHP Namespaces Import =========
+" ========= PHP Namespaces Import =========
 function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
@@ -342,7 +342,7 @@ endfunction
 autocmd FileType php inoremap <C-\> <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>pu :call PhpInsertUse()<CR>
 
-" ========== Expand Namespace =========
+" ========= Expand Namespace =========
 function! IPhpExpandClass()
     call PhpExpandClass()
     call feedkeys('a', 'n')
@@ -354,10 +354,10 @@ autocmd FileType php noremap <Leader>pe :call PhpExpandClass()<CR>
 au BufRead,BufNewFile *.php nnoremap <buffer> <leader>pd :call PhpDoc()<CR>
 au BufRead,BufNewFile *.php vnoremap <buffer> <leader>pd :call PhpDocRange()<CR>
 
-" =============== FZF config =================
+" ========= FZF config =========
 "nnoremap <silent> <C-p> :FZF<CR>
 
-" ======= run current file in console =======
+" ========= run current file in console =========
 nnoremap <leader>rf :call RunFile()<CR>
 func! RunFile()
     if &filetype == 'php'
@@ -369,7 +369,7 @@ func! RunFile()
     endif
 endfunc
 
-" ====== Run unit test ============
+" ========= Run unit test =========
 nnoremap <leader>rt :call RunTest()<CR>
 func! RunTest()
     if &filetype == 'php'
@@ -390,7 +390,7 @@ func! RunTest()
     endif
 endfunc
 
-" ========== GutenTags ==========
+" ========= GutenTags =========
 let g:gutentags_cache_dir = '~/.vim/gutentags'
 let g:gutentags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
                             \ '*.phar', '*.ini', '*.rst', '*.md',
@@ -398,7 +398,7 @@ let g:gutentags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
                             \ '*vendor/*/fixture*', '*vendor/*/Fixture*',
                             \ '*var/cache*', '*var/log*']
 
-" ========== CtrlP ==========
+" ========= CtrlP =========
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g "" '
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_match_current_file = 1
@@ -408,7 +408,7 @@ let g:ctrlp_working_path_mode = 'r'
 " Jump to definition
 map <silent> <leader>jd :CtrlPTag<cr><C-\>w
 
-" ========== Signify ==========
+" ========= Signify =========
 nnoremap <leader>gd :SignifyDiff<cr>
 nnoremap <leader>gp :SignifyHunkDiff<cr>
 nnoremap <leader>gu :SignifyHunkUndo<cr>
