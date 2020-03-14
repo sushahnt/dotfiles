@@ -63,13 +63,40 @@ Plug 'jwalton512/vim-blade'
 Plug 'alvan/vim-php-manual'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'sumpygump/php-documentor-vim'
+Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'daviesjamie/vim-base16-lightline'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 call plug#end()
+
+" ========== Theme ==========
+syntax enable
+
+" This call must happen after the plug#end() call to ensure
+" that the colorschemes have been loaded
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+else
+    let g:onedark_termcolors=16
+    let g:onedark_terminal_italics=1
+    colorscheme onedark
+endif
+
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    let g:python_host_prog = '/usr/bin/python'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+  else
+    let g:python_host_prog = '/usr/bin/python'
+    let g:python3_host_prog = '/usr/bin/python3'
+  endif
+endif
 
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>\<Space>"
@@ -87,46 +114,31 @@ set relativenumber
 set backspace=indent,eol,start   "Allow backspace in insert mode.
 set smartcase
 set ignorecase
-set cursorline                   "highlight current line
-
-" Toggle relative numbering, and set to absolute on loss of focus or insert mode
-set rnu
-function! ToggleNumbersOn()
-    set nu!
-    set rnu
-endfunction
-function! ToggleRelativeOn()
-    set rnu!
-    set nu
-endfunction
-autocmd FocusLost * call ToggleRelativeOn()
-autocmd FocusGained * call ToggleRelativeOn()
-autocmd InsertEnter * call ToggleRelativeOn()
-autocmd InsertLeave * call ToggleRelativeOn()
+set cursorline               "highlight current line
 
 " ========== Scrolling ==========
-set scrolloff=8                 " Scroll when 8 lines away from margins
-set sidescrolloff=15            " How near the cursor must come to the border
+set scrolloff=8              " Scroll when 8 lines away from margins
+set sidescrolloff=15         " How near the cursor must come to the border
 set sidescroll=3
 
 " ========== Handling Files ==========
-set encoding=utf-8              " UTF-8 Encoding to avoid server issues
-set noswapfile                  " Avoid using Swap Files. Text is in memory
-set nobackup                    " Prevent Backup files
-set nowb                        " Prevent Backup files
-set history=1000                " Amount of :cmdline history
+set encoding=utf-8           " UTF-8 Encoding to avoid server issues
+set noswapfile               " Avoid using Swap Files. Text is in memory
+set nobackup                 " Prevent Backup files
+set nowb                     " Prevent Backup files
+set history=1000             " Amount of :cmdline history
 set path+=**
 
 " ========== Folding settings ==========
-set foldmethod=indent            " fold based on indent
-set foldnestmax=10              " deepest fold is 10 levels
-set nofoldenable              " dont fold by default
-set foldlevel=1                " this is just what i use
+set foldmethod=indent        " fold based on indent
+set foldnestmax=10           " deepest fold is 10 levels
+set nofoldenable             " dont fold by default
+set foldlevel=1              " this is just what i use
 
 " ========== Tabs and indent ==========
 set nowrap
-set autoindent                " on new lines, match indent of previous line
-set copyindent                " copy the previous indentation on autoindenting
+set autoindent               " on new lines, match indent of previous line
+set copyindent               " copy the previous indentation on autoindenting
 set cindent                  " smart indenting for c-like code
 set expandtab                " Tabs are spaces, not tabs
 
@@ -163,15 +175,81 @@ if has('nvim')
     let g:deoplete#enable_at_startup = 1
 endif
 
-" ========== Theme ==========
-syntax enable
-set background=dark
-colorscheme onedark
+" Reload unchanged files automatically
+set autoread
+au CursorHold * checktime
+
+" ======= autoreload rc file on save ========
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
+" Toggle relative numbering, and set to absolute on loss of focus or insert mode
+set rnu
+function! ToggleNumbersOn()
+    set nu!
+    set rnu
+endfunction
+function! ToggleRelativeOn()
+    set rnu!
+    set nu
+endfunction
+autocmd FocusLost * call ToggleRelativeOn()
+autocmd FocusGained * call ToggleRelativeOn()
+autocmd InsertEnter * call ToggleRelativeOn()
+autocmd InsertLeave * call ToggleRelativeOn()
+
+" ========== Bubble/Move selected lines ==========
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" ========== Resize buffer ==========
+nnoremap <A-h> :vertical resize -5<cr>
+nnoremap <A-j> :resize +5<cr>
+nnoremap <A-k> :resize -5<cr>
+nnoremap <A-l> :vertical resize +5<cr>
+
+" ========== SAVE ==========
+nnoremap <C-s> :update<CR>
+inoremap <C-s> <Esc>:update<CR>
+vnoremap <C-s> <Esc>:update<CR>
+
+" ========== Edit & load .vimrc file ==========
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
+nnoremap <leader>so :source $MYVIMRC<cr>
+
+" remap esc
+inoremap jk <esc>
+
+nnoremap <leader>rr :echo cfi#format("%s", "")<CR>
+
+" ========== netrw settings ==========
+let g:netrw_localrmdir="rm -r"                  "delete non empty directory
+nnoremap - :Explore<CR>
+
+" Set filetype for ractive template for pagevamp
+autocmd BufNewFile,BufRead *.js.twig   set syntax=javascript
+autocmd BufNewFile,BufRead *.twig   set syntax=twig
+"autocmd BufNewFile,BufRead *.blade.php   set filetype=html
+
+set laststatus=0
+
+" Auto Remove White Space
+autocmd BufWritePre * %s/\s\+$//e
+
+" Convert tabs to Space
+command! Tabstospace %s/\t/  /g
+
+" Auto Format JS file as per "standard
+" autocmd bufwritepost *.js silent !standard --fix %
+"
+:nmap <leader>ll m`b~``
 
 " ========== Light Line ==========
 set noshowmode
 let g:lightline = {
-        \ 'colorscheme': 'onedark',
+        \ 'colorscheme': 'base16',
         \ 'active': {
         \   'left': [['mode'], ['gitbranch','readonly', 'filename', 'modified'], ['gutentags']],
         \   'right': [ [ 'lineinfo' ],
@@ -216,15 +294,13 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 
 " ========== Search ==========
 set incsearch               "highlight the search text object
 set hlsearch                "highlight search result
 " Clear the search buffer
 nnoremap <leader>, :noh<cr>
-
-let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_prog = '/usr/bin/python3'
 
 " ========== NERDTree ==========
 let NERDTreeShowHidden=1           "Show hidden file in NERDTree
@@ -257,20 +333,6 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = 'v'
-
-" Reload unchanged files automatically
-set autoread
-au CursorHold * checktime
-
-" ======= autoreload rc file on save ========
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
-
-" ========== Edit & load .vimrc file ==========
-nnoremap <leader>ev :tabe $MYVIMRC<cr>
-nnoremap <leader>so :source $MYVIMRC<cr>
 
 " ========== PHP Namespaces Import =========
 function! IPhpInsertUse()
@@ -327,45 +389,6 @@ func! RunTest()
         endif
     endif
 endfunc
-
-nnoremap <leader>rr :echo cfi#format("%s", "")<CR>
-
-" ========== Bubble/Move selected lines ==========
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-" ========== Resize buffer ==========
-nnoremap <A-h> :vertical resize -5<cr>
-nnoremap <A-j> :resize +5<cr>
-nnoremap <A-k> :resize -5<cr>
-nnoremap <A-l> :vertical resize +5<cr>
-
-" ========== SAVE ==========
-nnoremap <C-s> :update<CR>
-inoremap <C-s> <Esc>:update<CR>
-vnoremap <C-s> <Esc>:update<CR>
-
-" ========== netrw settings ==========
-let g:netrw_localrmdir="rm -r"                  "delete non empty directory
-nnoremap - :Explore<CR>
-
-" Set filetype for ractive template for pagevamp
-autocmd BufNewFile,BufRead *.js.twig   set syntax=javascript
-autocmd BufNewFile,BufRead *.twig   set syntax=twig
-"autocmd BufNewFile,BufRead *.blade.php   set filetype=html
-
-set laststatus=0
-
-" Auto Remove White Space
-autocmd BufWritePre * %s/\s\+$//e
-
-" Convert tabs to Space
-command! Tabstospace %s/\t/  /g
-
-" Auto Format JS file as per "standard
-" autocmd bufwritepost *.js silent !standard --fix %
-"
-:nmap <leader>ll m`b~``
 
 " ========== GutenTags ==========
 let g:gutentags_cache_dir = '~/.vim/gutentags'
