@@ -273,6 +273,7 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_php_phpcs_standard = "psr2"
+let g:ale_lint_on_enter = 0
 
 augroup AleGroup
     autocmd!
