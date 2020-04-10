@@ -51,7 +51,6 @@ Plug 'hashivim/vim-hashicorp-tools'
 Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sbdchd/neoformat'
 Plug 'powerman/vim-plugin-AnsiEsc'
@@ -149,6 +148,14 @@ set shiftround
 set softtabstop=4
 
 filetype plugin indent on
+
+highlight SpecialKey ctermfg=19 guifg=#333333
+highlight NonText ctermfg=19 guifg=#333333
+
+highlight Comment cterm=italic term=italic gui=italic
+highlight htmlArg cterm=italic term=italic gui=italic
+highlight xmlAttrib cterm=italic term=italic gui=italic
+highlight Normal ctermbg=none
 
 " Allow for mappings including Esc, while preserving zero timeout after pressing it manually.
 set complete-=i
@@ -356,7 +363,9 @@ au BufRead,BufNewFile *.php nnoremap <buffer> <leader>pd :call PhpDoc()<CR>
 au BufRead,BufNewFile *.php vnoremap <buffer> <leader>pd :call PhpDocRange()<CR>
 
 " ========= FZF config =========
-"nnoremap <silent> <C-p> :FZF<CR>
+nnoremap <silent> <C-p> :FZF<CR>
+set rtp+=~/.fzf
+let g:fzf_source = 'find . -type f | grep -v "node_modules/" | grep -v "\.git/" | grep -v "\.mat$"'
 
 " ========= run current file in console =========
 nnoremap <leader>rf :call RunFile()<CR>
@@ -398,16 +407,6 @@ let g:gutentags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
                             \ '*vendor/*/test*', '*vendor/*/Test*',
                             \ '*vendor/*/fixture*', '*vendor/*/Fixture*',
                             \ '*var/cache*', '*var/log*']
-
-" ========= CtrlP =========
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g "" '
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_match_current_file = 1
-let g:ctrlp_lazy_update = 1
-let g:ctrlp_use_caching = 0
-let g:ctrlp_working_path_mode = 'r'
-" Jump to definition
-map <silent> <leader>jd :CtrlPTag<cr><C-\>w
 
 " ========= Signify =========
 nnoremap <leader>gd :SignifyDiff<cr>

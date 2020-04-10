@@ -14,15 +14,16 @@ export LANG=en_US.UTF-8
 
 export EDITOR='nvim'
 
-# Compilation flags
-export ARCHFLAGS="-arch x86_64"
-
 alias vi="nvim"
 [ -f ~/.alias ] && source ~/.alias
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
-export TERM="xterm-256color"
+if [ -z "$TMUX" ]; then
+    export TERM=xterm-256color-italic
+else
+    export TERM=tmux-256color
+fi
 
 # Composer
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
