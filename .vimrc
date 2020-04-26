@@ -57,7 +57,6 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'posva/vim-vue'
 Plug 'pangloss/vim-javascript'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'rking/ag.vim'
 Plug 'jwalton512/vim-blade'
 Plug 'alvan/vim-php-manual'
 Plug 'arnaud-lb/vim-php-namespace'
@@ -316,7 +315,7 @@ nmap ,m :NERDTreeToggle<CR>
 nmap ,n :NERDTreeFind<CR>
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
-let g:NERDSpaceDelims = 1                 "Add a space after comment
+let g:NERDSpaceDelims = 1           "Add a space after comment
 let NERDTreeDirArrowExpandable = "" " make arrows invisible
 let NERDTreeDirArrowCollapsible = "" " make arrows invisible
 let NERDTreeNodeDelimiter = "\u263a" " smiley face

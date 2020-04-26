@@ -33,7 +33,7 @@ mkdir -p ~/.config/nvim/backup
 
 # link the vim, nvim, zsh, bash and tmux rc file
 ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
-ln -sf ~/dotfiles/.vimrc ~/.vimrc
+# ln -sf ~/dotfiles/.vimrc ~/.vimrc
 rm ~/.zshrc
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
