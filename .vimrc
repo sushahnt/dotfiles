@@ -261,9 +261,9 @@ let g:lightline = {
         \              [ 'percent' ],
         \              [ 'filetype' ] ]
         \ },
-        \ 'component': {
-        \   'gitbranch': '%{FugitiveStatusline()}',
-        \   'gutentags': '%{gutentags#statusline("[Generating...]")}'
+        \ 'component_function': {
+        \   'gitbranch': 'fugitive#head',
+        \   'gutentags': 'gutentags#statusline'
         \ },
       \ }
 
