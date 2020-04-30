@@ -55,7 +55,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'sbdchd/neoformat'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'posva/vim-vue'
-Plug 'pangloss/vim-javascript'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jwalton512/vim-blade'
 Plug 'alvan/vim-php-manual'
@@ -280,6 +279,7 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_php_phpcs_standard = "psr2"
 let g:ale_lint_on_enter = 0
+let g:ale_fixers = {'javascript': ['eslint']}
 
 augroup AleGroup
     autocmd!

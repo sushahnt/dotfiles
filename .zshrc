@@ -22,7 +22,7 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 if [ -z "$TMUX" ]; then
     export TERM=xterm-256color-italic
 else
-    export TERM=tmux-256color
+    export TERM=xterm-256color
 fi
 
 # Composer
