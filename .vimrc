@@ -4,6 +4,7 @@ set nocompatible
 
 call plug#begin()
 
+Plug 'mhinz/vim-startify'
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'preservim/nerdcommenter'
 
@@ -22,14 +23,13 @@ Plug 'andymass/vim-matchup'
 " Align plugin
 Plug 'godlygeek/tabular'
 
-" PHP refactoring options
+" PHP
 Plug 'adoy/vim-php-refactoring-toolbox', {'for': 'php'}
 Plug '2072/php-indenting-for-vim', {'for': 'php'}
-
-" PHP doc autocompletion
-Plug 'tobyS/vmustache' | Plug 'tobyS/pdv', {'for': 'php'}
-
-" *twig
+Plug 'alvan/vim-php-manual'
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'tobyS/vmustache' | Plug 'tobyS/pdv', {'for': 'php'} " PHP doc autocompletion
+Plug 'jwalton512/vim-blade'
 Plug 'lumiliet/vim-twig', {'for': 'twig'}
 
 " Display the hexadecimal colors - useful for css and color config
@@ -40,31 +40,24 @@ Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'townk/vim-autoclose'
 Plug 'sheerun/vim-polyglot'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
-Plug 'mhinz/vim-startify'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'hashivim/vim-hashicorp-tools'
 Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'editorconfig/editorconfig-vim'
-Plug 'sbdchd/neoformat'
-Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'posva/vim-vue'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'jwalton512/vim-blade'
-Plug 'alvan/vim-php-manual'
-Plug 'arnaud-lb/vim-php-namespace'
-Plug 'sumpygump/php-documentor-vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Visuals
 Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -108,10 +101,10 @@ set mouse=""
 set hidden
 set number
 set relativenumber
-set backspace=indent,eol,start   "Allow backspace in insert mode.
+set backspace=indent,eol,start   " Allow backspace in insert mode.
 set smartcase
 set ignorecase
-set cursorline               "highlight current line
+set cursorline               " highlight current line
 
 " ========= Scrolling =========
 set scrolloff=8              " Scroll when 8 lines away from margins
@@ -175,11 +168,6 @@ set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 " System clipboard copy & paste
 set pastetoggle=<F2> "F2 before pasting to preserve indentation
 
-" Deoplete
-if has('nvim')
-    let g:deoplete#enable_at_startup = 1
-endif
-
 " Reload unchanged files automatically
 set autoread
 au CursorHold * checktime
@@ -227,12 +215,6 @@ nnoremap <leader>so :source $MYVIMRC<cr>
 " remap esc
 inoremap jk <esc>
 
-nnoremap <leader>rr :echo cfi#format("%s", "")<CR>
-
-" ========= netrw settings =========
-let g:netrw_localrmdir="rm -r"   "delete non empty directory
-nnoremap - :Explore<CR>
-
 " Set filetype for ractive template for pagevamp
 autocmd BufNewFile,BufRead *.js.twig   set syntax=javascript
 autocmd BufNewFile,BufRead *.twig   set syntax=twig
@@ -253,16 +235,21 @@ command! Tabstospace %s/\t/  /g
 
 " ========= Light Line =========
 set noshowmode
+
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
 let g:lightline = {
         \ 'colorscheme': 'base16',
         \ 'active': {
-        \   'left': [['mode'], ['gitbranch','readonly', 'filename', 'modified'], ['gutentags']],
-        \   'right': [ [ 'lineinfo' ],
-        \              [ 'percent' ],
-        \              [ 'filetype' ] ]
+        \   'left': [['mode'], ['gitbranch', 'readonly', 'filename', 'modified'], ['gutentags']],
+        \   'right': [['lineinfo'], ['percent'], ['filetype'], ['cocstatus', 'currentfunction']]
         \ },
         \ 'component_function': {
         \   'gitbranch': 'fugitive#head',
+        \   'cocstatus': 'coc#status',
+        \   'currentfunction': 'CocCurrentFunction',
         \   'gutentags': 'gutentags#statusline'
         \ },
       \ }
@@ -301,7 +288,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 
 " ========= Search =========
 set incsearch               "highlight the search text object
@@ -357,9 +344,8 @@ endfunction
 "autocmd FileType php inoremap <Leader>pe:call IPhpExpandClass()<CR>
 autocmd FileType php noremap <Leader>pe :call PhpExpandClass()<CR>
 
-"au BufRead,BufNewFile *.php inoremap <buffer> <leader>pd :call PhpDoc()<CR>
-au BufRead,BufNewFile *.php nnoremap <buffer> <leader>pd :call PhpDoc()<CR>
-au BufRead,BufNewFile *.php vnoremap <buffer> <leader>pd :call PhpDocRange()<CR>
+let g:pdv_template_dir = $HOME ."/.config/nvim/plugged/pdv/templates_snip"
+autocmd FileType php noremap <Leader>pd :call pdv#DocumentWithSnip()<CR>
 
 " ========= FZF config =========
 nnoremap <silent> <C-p> :FZF<CR>
