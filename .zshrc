@@ -1,3 +1,9 @@
+#  ____ ____ 
+# / ___/ ___|
+# \___ \___ \
+#  ___) |__) | Sushant Shah
+# |____/____/  https://github.com/tsushant
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 

@@ -1,3 +1,9 @@
+"  ____ ____
+" / ___/ ___|
+" \___ \___ \
+"  ___) |__) | Sushant Shah
+" |____/____/  https://github.com/tsushant
+
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -93,8 +99,10 @@ let maplocalleader = "\<Space>\<Space>"
 
 " Move cursor out for neovim terminal
 if has('nvim')
-:tnoremap <Esc> <C-\><C-n><C-w><C-w>
+    :tnoremap <Esc> <C-\><C-n><C-w><C-w>
 endif
+
+filetype plugin indent on
 
 set mouse=""
 " for vim-ctrlspace
@@ -138,16 +146,6 @@ set shiftwidth=4
 set shiftround
 set softtabstop=4
 
-filetype plugin indent on
-
-highlight SpecialKey ctermfg=19 guifg=#333333
-highlight NonText ctermfg=19 guifg=#333333
-
-highlight Comment cterm=italic term=italic gui=italic
-highlight htmlArg cterm=italic term=italic gui=italic
-highlight xmlAttrib cterm=italic term=italic gui=italic
-highlight Normal ctermbg=none
-
 " Allow for mappings including Esc, while preserving zero timeout after pressing it manually.
 set complete-=i
 
@@ -172,11 +170,13 @@ set pastetoggle=<F2> "F2 before pasting to preserve indentation
 set autoread
 au CursorHold * checktime
 
-" Autoreload rc file on save
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
+highlight SpecialKey ctermfg=19 guifg=#333333
+highlight NonText ctermfg=19 guifg=#333333
+
+highlight Comment cterm=italic term=italic gui=italic
+highlight htmlArg cterm=italic term=italic gui=italic
+highlight xmlAttrib cterm=italic term=italic gui=italic
+highlight Normal ctermbg=none
 
 " Toggle relative numbering, and set to absolute on loss of focus or insert mode
 set rnu
@@ -197,11 +197,12 @@ autocmd InsertLeave * call ToggleRelativeOn()
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" ========= Resize buffer =========
-nnoremap <A-h> :vertical resize -5<cr>
-nnoremap <A-j> :resize +5<cr>
-nnoremap <A-k> :resize -5<cr>
-nnoremap <A-l> :vertical resize +5<cr>
+" ========= Split and resize =========
+set splitbelow splitright
+nnoremap <A-h> :vertical resize -3<cr>
+nnoremap <A-j> :resize +3<cr>
+nnoremap <A-k> :resize -3<cr>
+nnoremap <A-l> :vertical resize +3<cr>
 
 " ========= SAVE =========
 nnoremap <C-s> :update<CR>
@@ -220,8 +221,6 @@ autocmd BufNewFile,BufRead *.js.twig   set syntax=javascript
 autocmd BufNewFile,BufRead *.twig   set syntax=twig
 "autocmd BufNewFile,BufRead *.blade.php   set filetype=html
 
-set laststatus=0
-
 " Auto Remove White Space
 autocmd BufWritePre * %s/\s\+$//e
 
@@ -230,18 +229,20 @@ command! Tabstospace %s/\t/  /g
 
 " Auto Format JS file as per "standard
 " autocmd bufwritepost *.js silent !standard --fix %
-"
+
+" Uppercase word
 :nmap <leader>ll m`b~``
 
 " ========= Light Line =========
 set noshowmode
+set laststatus=0
 
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
 endfunction
 
 let g:lightline = {
-        \ 'colorscheme': 'base16',
+        \ 'colorscheme': 'seoul256',
         \ 'active': {
         \   'left': [['mode'], ['gitbranch', 'readonly', 'filename', 'modified'], ['gutentags']],
         \   'right': [['lineinfo'], ['percent'], ['filetype'], ['cocstatus', 'currentfunction']]
@@ -307,6 +308,8 @@ let NERDTreeDirArrowExpandable = "" " make arrows invisible
 let NERDTreeDirArrowCollapsible = "" " make arrows invisible
 let NERDTreeNodeDelimiter = "\u263a" " smiley face
 let g:NERDTreeLimitedSyntax = 1
+let g:NERDTreeHighlightFolders = 1
+let g:NERDTreeHighlightFoldersFullName = 1
 
 let g:NERDTreeIndicatorMapCustom = {
 \ "Modified"  : "✹",
@@ -326,14 +329,14 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = 'v'
+" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = 'v'
 
 " ========= PHP Namespaces Import =========
 function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
 endfunction
-autocmd FileType php inoremap <C-\> <Esc>:call IPhpInsertUse()<CR>
+" autocmd FileType php inoremap <C-\> <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>pu :call PhpInsertUse()<CR>
 
 " ========= Expand Namespace =========
@@ -361,27 +364,6 @@ func! RunFile()
         exec "!bash %:p"
     elseif &filetype == 'javascript'
         exec "!node %:p"
-    endif
-endfunc
-
-" ========= Run unit test =========
-nnoremap <leader>rt :call RunTest()<CR>
-func! RunTest()
-    if &filetype == 'php'
-        if filereadable("docker-compose.yml")
-            let phpunit_exec = "Dispatch docker-compose exec app vendor/bin/phpunit"
-        else
-            let phpunit_exec = "!./vendor/bin/phpunit"
-        end
-        if cfi#format('%s', '') == ''
-            exec phpunit_exec." --filter %:t:r %"
-        else
-            exec phpunit_exec." --filter ".cfi#format('%s', '')." %"
-        endif
-    elseif &filetype == "javascript"
-        if filereadable("./node_modules/.bin/ava")
-            exec "!ava"
-        endif
     endif
 endfunc
 
