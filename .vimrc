@@ -78,7 +78,7 @@ if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
 else
-    let g:onedark_termcolors=16
+    let g:onedark_termcolors=256
     let g:onedark_terminal_italics=1
     colorscheme onedark
 endif
@@ -242,7 +242,7 @@ function! CocCurrentFunction()
 endfunction
 
 let g:lightline = {
-        \ 'colorscheme': 'seoul256',
+        \ 'colorscheme': 'onedark',
         \ 'active': {
         \   'left': [['mode'], ['gitbranch', 'readonly', 'filename', 'modified'], ['gutentags']],
         \   'right': [['lineinfo'], ['percent'], ['filetype'], ['cocstatus', 'currentfunction']]
@@ -329,7 +329,7 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = 'v'
+"let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = 'v'
 
 " ========= PHP Namespaces Import =========
 function! IPhpInsertUse()
