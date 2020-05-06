@@ -329,7 +329,6 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-"let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = 'v'
 
 " ========= PHP Namespaces Import =========
 function! IPhpInsertUse()
