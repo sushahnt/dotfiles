@@ -174,7 +174,6 @@ highlight NonText ctermfg=19 guifg=#333333
 highlight Comment cterm=italic term=italic gui=italic
 highlight htmlArg cterm=italic term=italic gui=italic
 highlight xmlAttrib cterm=italic term=italic gui=italic
-highlight Normal ctermbg=none
 
 " Toggle relative numbering, and set to absolute on loss of focus or insert mode
 set nu
