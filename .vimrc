@@ -63,7 +63,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'nicknisi/vim-base16-lightline'
+Plug 'tsushant/vim-base16-lightline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -107,8 +107,6 @@ filetype plugin indent on
 set mouse=""
 " for vim-ctrlspace
 set hidden
-set number
-set relativenumber
 set backspace=indent,eol,start   " Allow backspace in insert mode.
 set smartcase
 set ignorecase
@@ -179,6 +177,7 @@ highlight xmlAttrib cterm=italic term=italic gui=italic
 highlight Normal ctermbg=none
 
 " Toggle relative numbering, and set to absolute on loss of focus or insert mode
+set nu
 set rnu
 function! ToggleNumbersOn()
     set nu!
