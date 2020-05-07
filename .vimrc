@@ -63,7 +63,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'daviesjamie/vim-base16-lightline'
+Plug 'nicknisi/vim-base16-lightline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -242,7 +242,7 @@ function! CocCurrentFunction()
 endfunction
 
 let g:lightline = {
-        \ 'colorscheme': 'onedark',
+        \ 'colorscheme': 'base16',
         \ 'active': {
         \   'left': [['mode'], ['gitbranch', 'readonly', 'filename', 'modified'], ['gutentags']],
         \   'right': [['lineinfo'], ['percent'], ['filetype'], ['cocstatus', 'currentfunction']]
