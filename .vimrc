@@ -265,6 +265,7 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_php_phpcs_standard = "psr2"
 let g:ale_lint_on_enter = 0
+let g:ale_set_highlights = 0
 let g:ale_fixers = {'javascript': ['eslint']}
 
 augroup AleGroup
