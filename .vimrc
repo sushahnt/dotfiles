@@ -377,3 +377,21 @@ let g:gutentags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
 nnoremap <leader>gd :SignifyDiff<cr>
 nnoremap <leader>gp :SignifyHunkDiff<cr>
 nnoremap <leader>gu :SignifyHunkUndo<cr>
+
+" ========= COC =========
+" Some servers have issues with backup files, see #649.
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
