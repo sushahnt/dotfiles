@@ -46,13 +46,13 @@ Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'townk/vim-autoclose'
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'posva/vim-vue'
 Plug 'terryma/vim-multiple-cursors'
@@ -111,6 +111,10 @@ set backspace=indent,eol,start   " Allow backspace in insert mode.
 set smartcase
 set ignorecase
 set cursorline               " highlight current line
+set nrformats-=octal
+set wildmenu
+set sessionoptions-=options
+set viewoptions-=options
 
 " ========= Scrolling =========
 set scrolloff=8              " Scroll when 8 lines away from margins
@@ -139,6 +143,7 @@ set cindent                  " smart indenting for c-like code
 set expandtab                " Tabs are spaces, not tabs
 
 " ========= Set smarttab =========
+set smarttab
 set tabstop=4                " tab size
 set shiftwidth=4
 set shiftround
@@ -233,7 +238,7 @@ command! Tabstospace %s/\t/  /g
 
 " ========= Light Line =========
 set noshowmode
-set laststatus=0
+set laststatus=2
 
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
@@ -349,9 +354,8 @@ let g:pdv_template_dir = $HOME ."/.config/nvim/plugged/pdv/templates_snip"
 autocmd FileType php noremap <Leader>pd :call pdv#DocumentWithSnip()<CR>
 
 " ========= FZF config =========
-nnoremap <silent> <C-p> :FZF<CR>
+nnoremap <silent> <C-p> :Files<CR>
 set rtp+=~/.fzf
-let g:fzf_source = 'find . -type f | grep -v "node_modules/" | grep -v "\.git/" | grep -v "\.mat$"'
 
 " ========= run current file in console =========
 nnoremap <leader>rf :call RunFile()<CR>
