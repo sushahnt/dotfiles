@@ -83,6 +83,8 @@ else
     colorscheme onedark
 endif
 
+set background=dark
+
 if has("unix")
   let s:uname = system("uname")
   if s:uname == "Darwin\n"
@@ -176,7 +178,7 @@ au CursorHold * checktime
 highlight SpecialKey ctermfg=19 guifg=#333333
 highlight NonText ctermfg=19 guifg=#333333
 
-highlight Comment cterm=italic term=italic gui=italic
+highlight Comment cterm=italic term=italic gui=italic ctermfg=242
 highlight htmlArg cterm=italic term=italic gui=italic
 highlight xmlAttrib cterm=italic term=italic gui=italic
 
