@@ -313,6 +313,7 @@ let NERDTreeNodeDelimiter = "\u263a" " smiley face
 let g:NERDTreeLimitedSyntax = 1
 let g:NERDTreeHighlightFolders = 1
 let g:NERDTreeHighlightFoldersFullName = 1
+let g:NERDTreeWinPos = 'right'
 
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",

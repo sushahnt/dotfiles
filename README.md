@@ -1,5 +1,7 @@
 # .dotfiles
 
+![dotfiles](dotfiles.png)
+
 ## Terminal Capabilities
 
 In order to properly support italic fonts in and out of tmux, a couple of terminal capabilities need to be described. Run the following from the root of the project:
