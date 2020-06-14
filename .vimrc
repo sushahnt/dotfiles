@@ -20,9 +20,6 @@ Plug 'tpope/vim-fugitive' | Plug 'mhinz/vim-signify'
 " Surrounding text objects with whatever you want (paranthesis, quotes, html tags...)
 Plug 'tpope/vim-surround'
 
-" Highlight briefly every yank text
-Plug 'machakann/vim-highlightedyank'
-
 " Match more stuff with % (html tag, LaTeX...)
 Plug 'andymass/vim-matchup'
 
@@ -258,7 +255,7 @@ let g:lightline = {
         \   'currentfunction': 'CocCurrentFunction',
         \   'gutentags': 'gutentags#statusline'
         \ },
-      \ }
+    \ }
 
 " ========= Ale =========
 set binary
@@ -318,17 +315,17 @@ let g:NERDTreeHighlightFolders = 1
 let g:NERDTreeHighlightFoldersFullName = 1
 
 let g:NERDTreeIndicatorMapCustom = {
-\ "Modified"  : "✹",
-\ "Staged"    : "✚",
-\ "Untracked" : "✭",
-\ "Renamed"   : "➜",
-\ "Unmerged"  : "═",
-\ "Deleted"   : "✖",
-\ "Dirty"     : "✗",
-\ "Clean"     : "✔︎",
-\ 'Ignored'   : '☒',
-\ "Unknown"   : "?"
-\ }
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
 
 " Webdev icons
 let g:DevIconsEnableFoldersOpenClose = 1
@@ -385,6 +382,13 @@ nnoremap <leader>gp :SignifyHunkDiff<cr>
 nnoremap <leader>gu :SignifyHunkUndo<cr>
 
 " ========= COC =========
+let g:coc_global_extensions = [
+    \ 'coc-tsserver',
+    \ 'coc-vetur',
+    \ 'coc-snippets',
+    \ 'coc-yank'
+    \ ]
+
 " Some servers have issues with backup files, see #649.
 set nowritebackup
 
