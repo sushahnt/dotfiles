@@ -163,7 +163,7 @@ set ruler
 set list
 
 " Set default whitespace characters when using :set list
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set listchars=tab:>\ ,trail:-,extends:❯,precedes:❮,nbsp:+
 
 " System clipboard copy & paste
 set pastetoggle=<F2> "F2 before pasting to preserve indentation
@@ -218,7 +218,7 @@ nnoremap <leader>so :source $MYVIMRC<cr>
 " remap esc
 inoremap jk <esc>
 
-" Set filetype for ractive template for pagevamp
+" Set filetype for reactive template for pagevamp
 autocmd BufNewFile,BufRead *.js.twig   set syntax=javascript
 autocmd BufNewFile,BufRead *.twig   set syntax=twig
 "autocmd BufNewFile,BufRead *.blade.php   set filetype=html
@@ -234,6 +234,26 @@ command! Tabstospace %s/\t/  /g
 
 " Uppercase word
 :nmap <leader>ll m`b~``
+
+" ========= Search =========
+set incsearch               "highlight the search text object
+set hlsearch                "highlight search result
+" Clear the search buffer
+nnoremap <leader>, :noh<cr>
+
+" ========= run current file in console =========
+nnoremap <leader>rf :call RunFile()<CR>
+func! RunFile()
+    if &filetype == 'php'
+        exec "!php %:p"
+    elseif &filetype == 'sh'
+        exec "!bash %:p"
+    elseif &filetype == 'javascript'
+        exec "!node %:p"
+    endif
+endfunc
+
+let g:startify_change_to_dir = 0
 
 " ========= Light Line =========
 set noshowmode
@@ -294,12 +314,6 @@ let g:UltiSnipsEditSplit="vertical"
 
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 
-" ========= Search =========
-set incsearch               "highlight the search text object
-set hlsearch                "highlight search result
-" Clear the search buffer
-nnoremap <leader>, :noh<cr>
-
 " ========= NERDTree =========
 let NERDTreeShowHidden=1           "Show hidden file in NERDTree
 nmap ,m :NERDTreeToggle<CR>
@@ -356,18 +370,6 @@ autocmd FileType php noremap <Leader>pd :call pdv#DocumentWithSnip()<CR>
 " ========= FZF config =========
 nnoremap <silent> <C-p> :Files<CR>
 set rtp+=~/.fzf
-
-" ========= run current file in console =========
-nnoremap <leader>rf :call RunFile()<CR>
-func! RunFile()
-    if &filetype == 'php'
-        exec "!php %:p"
-    elseif &filetype == 'sh'
-        exec "!bash %:p"
-    elseif &filetype == 'javascript'
-        exec "!node %:p"
-    endif
-endfunc
 
 " ========= GutenTags =========
 let g:gutentags_cache_dir = '~/.vim/gutentags'
