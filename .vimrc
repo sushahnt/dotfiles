@@ -43,8 +43,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'townk/vim-autoclose'
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -331,7 +329,7 @@ let g:NERDTreeHighlightFolders = 1
 let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeWinPos = 'right'
 
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
